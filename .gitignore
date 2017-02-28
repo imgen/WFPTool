@@ -27,3 +27,6 @@
 *.exe
 *.out
 *.app
+src/WfpTool.VC.db
+src/WfpTool/Debug/
+src/WfpTool.Api.Integrate/obj/

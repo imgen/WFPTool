@@ -1,0 +1,20 @@
+EXPORTS
+	GetLastFilterApiError
+	AddBlockAllFilter
+	AddBlockAllFilter2
+	AddBlockNonVpnDnsFilter
+	AddBlockNonVpnDnsFilter2
+	AddAllowTunnelFilter
+	AddAllowTunnelFilter2
+	AddAllowDnsFilter
+	AddAllowDnsFilter2
+	AddAllowSpecificFilter
+	AddAllowSpecificFilter2
+	AddAllowSpecificHostnameFilter
+	AddAllowSpecificHostnameFilter2
+	AddAllowSubnet
+	AddAllowSubnet2
+	RemoveFilter
+	RemoveFilter2
+	RemoveAllFilters
+	RemoveAllFilters2

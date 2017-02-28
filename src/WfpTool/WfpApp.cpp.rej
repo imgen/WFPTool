@@ -1,0 +1,9 @@
+diff a/src/WfpTool/WfpTool/WfpApp.cpp b/src/WfpTool/WfpTool/WfpApp.cpp	(rejected hunks)
+@@ -17,7 +17,6 @@
+ 	DEFINE_GUID(allowLocalLoopback,
+ 		0x8b70fbe3, 0x73c4, 0x486b, 0xaf, 0x37, 0xae, 0x8f, 0x64, 0x8c, 0xc3, 0x56);
+ 
+-	WfpEngine::FilterVector WfpApp::ConvertToRawFilters()
+ 	WfpApp::WfpApp(string ipAddress, int port, int interfaceIndex)
+ 	{
+ 		_ipAddress = ipAddress;

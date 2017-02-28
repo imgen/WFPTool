@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="UnderTest">
+      <UniqueIdentifier>{31994b24-13d4-4305-bc90-904ba2a15100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnderTest\Source Files">
+      <UniqueIdentifier>{7abf7559-a7c4-4f4b-8bbf-fbb33f1f5f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnderTest\Header Files">
+      <UniqueIdentifier>{f3953acf-e760-481d-8608-198545578c09}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\FilterApiErrors.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\FilterApiExport.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\FilterApiProvider.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\NetworkAdapterUtils.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\WfpEngine.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\WfpEngineException.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WfpTool\WfpFilter.h">
+      <Filter>UnderTest\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mocks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WfpTool\FilterApiExport.cpp">
+      <Filter>UnderTest\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WfpTool\FilterApiProvider.cpp">
+      <Filter>UnderTest\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WfpTool\NetworkAdapterUtils.cpp">
+      <Filter>UnderTest\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WfpTool\WfpEngine.cpp">
+      <Filter>UnderTest\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WfpTool\WfpEngineException.cpp">
+      <Filter>UnderTest\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WfpTool\WfpFilter.cpp">
+      <Filter>UnderTest\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkAdapterUtilsTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WfpEngineTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mocks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterApiProviderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterApiExportTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
