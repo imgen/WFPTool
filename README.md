@@ -1,5 +1,5 @@
 # WFPTool
-A C++ wrapper library around Windows WFP API which greatly simplify the usage of the tedious WFP API
+A C++ wrapper library around Windows WFP API which greatly simplifies the usage of the tedious WFP API
 
 For C++ to call into the library, please refer to `src/WfpTool/FilterApiProvider.h`, `src/WfpTool/FilterApiProvider.cpp` and related tests in `src/WfpTool.Tests/FilterApiProviderTests.cpp`.
 
