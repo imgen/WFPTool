@@ -30,3 +30,8 @@
 src/WfpTool.VC.db
 src/WfpTool/Debug/
 src/WfpTool.Api.Integrate/obj/
+src/.vs/WfpTool/FileContentIndex/
+src/.vs/
+src/Debug/
+src/WfpTool.Tests/WfpTool.Tests.vcxproj.user
+src/WfpTool.Tests/Debug/

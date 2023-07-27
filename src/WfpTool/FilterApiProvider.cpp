@@ -13,7 +13,7 @@ namespace wfptool
 
 	void FilterApiProvider::DefineFilter(
 		vector<FilterGuidPair>& filters,
-		function<WfpFilter* (const GUID*)> definition)	{
+		function<WfpFilter* (const GUID*)> definition) {
 		auto guid = CreateFilterGuid();
 		auto filter = definition(guid);
 		filters.push_back(FilterGuidPair(filter, guid));
@@ -33,83 +33,83 @@ namespace wfptool
 				DefineFilter(
 					filters,
 					[](const GUID* filterGuid) {
-					return new WfpFilter(
-						*filterGuid,
-						MakeName(L"block all ipv4 outbound filter"),
-						FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-						1,
-						FWP_ACTION_BLOCK);
-				});
+						return new WfpFilter(
+							*filterGuid,
+							MakeName(L"block all ipv4 outbound filter"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+							1,
+							FWP_ACTION_BLOCK);
+					});
 
 				DefineFilter(
 					filters,
 					[](const GUID* filterGuid) {
-					return new WfpFilter(
-						*filterGuid,
-						MakeName(L"block all outbound ipv6 filter"),
-						FWPM_LAYER_OUTBOUND_TRANSPORT_V6,
-						1,
-						FWP_ACTION_BLOCK);
-				});
+						return new WfpFilter(
+							*filterGuid,
+							MakeName(L"block all outbound ipv6 filter"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V6,
+							1,
+							FWP_ACTION_BLOCK);
+					});
 
 				DefineFilter(
 					filters,
 					[](const GUID* filterGuid) {
-					auto filter = new WfpFilter(*filterGuid,
+						auto filter = new WfpFilter(*filterGuid,
 						MakeName(L"allow outbound local loopback filter"),
 						FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
 						0xF,
 						FWP_ACTION_PERMIT);
-					filter->AddCondition(
-						FWPM_CONDITION_LOCAL_INTERFACE_TYPE,
-						FWP_MATCH_EQUAL,
-						FWP_UINT32,
-						MIB_IF_TYPE_LOOPBACK);
-					return filter;
-				});
+				filter->AddCondition(
+					FWPM_CONDITION_LOCAL_INTERFACE_TYPE,
+					FWP_MATCH_EQUAL,
+					FWP_UINT32,
+					MIB_IF_TYPE_LOOPBACK);
+				return filter;
+					});
 
 				DefineFilter(
 					filters,
 					[](const GUID* filterGuid) {
-					auto filter = new WfpFilter(*filterGuid,
+						auto filter = new WfpFilter(*filterGuid,
 						MakeName(L"allow outbound local IPV6 loopback filter"),
 						FWPM_LAYER_OUTBOUND_TRANSPORT_V6,
 						0xF,
 						FWP_ACTION_PERMIT);
-					filter->AddCondition(
-						FWPM_CONDITION_LOCAL_INTERFACE_TYPE,
-						FWP_MATCH_EQUAL,
-						FWP_UINT32,
-						MIB_IF_TYPE_LOOPBACK);
-					return filter;
-				});
+				filter->AddCondition(
+					FWPM_CONDITION_LOCAL_INTERFACE_TYPE,
+					FWP_MATCH_EQUAL,
+					FWP_UINT32,
+					MIB_IF_TYPE_LOOPBACK);
+				return filter;
+					});
 
 				DefineFilter(
 					filters,
 					[](const GUID* filterGuid) {
-					auto filter = new WfpFilter(
-						*filterGuid,
-						MakeName(L"allow outbound DHCP fraffic filter"),
-						FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-						0xF,
-						FWP_ACTION_PERMIT);
-					filter->AddCondition(
-						FWPM_CONDITION_IP_PROTOCOL,
-						FWP_MATCH_EQUAL,
-						FWP_UINT8,
-						IPPROTO_UDP);
-					filter->AddCondition(
-						FWPM_CONDITION_IP_LOCAL_PORT,
-						FWP_MATCH_EQUAL,
-						FWP_UINT16,
-						DHCP_LOCAL_PORT);
-					filter->AddCondition(
-						FWPM_CONDITION_IP_REMOTE_PORT,
-						FWP_MATCH_EQUAL,
-						FWP_UINT16,
-						DHCP_REMOTE_PORT);
-					return filter;
-				});
+						auto filter = new WfpFilter(
+							*filterGuid,
+							MakeName(L"allow outbound DHCP fraffic filter"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+							0xF,
+							FWP_ACTION_PERMIT);
+						filter->AddCondition(
+							FWPM_CONDITION_IP_PROTOCOL,
+							FWP_MATCH_EQUAL,
+							FWP_UINT8,
+							IPPROTO_UDP);
+						filter->AddCondition(
+							FWPM_CONDITION_IP_LOCAL_PORT,
+							FWP_MATCH_EQUAL,
+							FWP_UINT16,
+							DHCP_LOCAL_PORT);
+						filter->AddCondition(
+							FWPM_CONDITION_IP_REMOTE_PORT,
+							FWP_MATCH_EQUAL,
+							FWP_UINT16,
+							DHCP_REMOTE_PORT);
+						return filter;
+					});
 			});
 	}
 
@@ -123,24 +123,24 @@ namespace wfptool
 		}
 
 		return CreateFilterGroupByFunc([interfaceIndex](vector<FilterGuidPair>& filters)
-		{
-			DefineFilter(
-				filters,
-				[interfaceIndex](const GUID* filterGuid) {
-				auto allowTunnelOutboundFilter = new WfpFilter(
-					*filterGuid,
-					MakeName(L"allow outbound tunnel filter"),
-					FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-					0x0E,
-					FWP_ACTION_PERMIT);
-				allowTunnelOutboundFilter->AddCondition(
-					FWPM_CONDITION_INTERFACE_INDEX,
-					FWP_MATCH_EQUAL,
-					FWP_UINT32,
-					interfaceIndex);
-				return allowTunnelOutboundFilter;
+			{
+				DefineFilter(
+					filters,
+					[interfaceIndex](const GUID* filterGuid) {
+						auto allowTunnelOutboundFilter = new WfpFilter(
+							*filterGuid,
+							MakeName(L"allow outbound tunnel filter"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+							0x0E,
+							FWP_ACTION_PERMIT);
+						allowTunnelOutboundFilter->AddCondition(
+							FWPM_CONDITION_INTERFACE_INDEX,
+							FWP_MATCH_EQUAL,
+							FWP_UINT32,
+							interfaceIndex);
+						return allowTunnelOutboundFilter;
+					});
 			});
-		});
 	}
 
 	FilterHandle FilterApiProvider::AddBlockNonVpnDnsFilter(const wstring& adapterNameOrId)
@@ -153,63 +153,63 @@ namespace wfptool
 		}
 
 		return CreateFilterGroupByFunc([interfaceIndex](vector<FilterGuidPair>& filters)
-		{
-			auto dnsServers = NetworkAdapterUtils::GetAllDnsServers();
-			ULONG vpnDns;
-
-			for (const auto& pair : dnsServers)
 			{
-				if (pair.first == interfaceIndex)
+				auto dnsServers = NetworkAdapterUtils::GetAllDnsServers();
+				ULONG vpnDns = 0;
+
+				for (const auto& pair : dnsServers)
 				{
-					vpnDns = NetworkAdapterUtils::ConvertIpv4AddressToUlong(pair.second);
-					break;
+					if (pair.first == interfaceIndex)
+					{
+						vpnDns = NetworkAdapterUtils::ConvertIpv4AddressToUlong(pair.second);
+						break;
+					}
 				}
-			}
 
-			for (const auto& pair : dnsServers)
-			{
-				auto dnsAddress = NetworkAdapterUtils::ConvertIpv4AddressToUlong(pair.second);
-
-				if (dnsAddress == vpnDns)
+				for (const auto& pair : dnsServers)
 				{
-					continue;
+					auto dnsAddress = NetworkAdapterUtils::ConvertIpv4AddressToUlong(pair.second);
+
+					if (dnsAddress == vpnDns)
+					{
+						continue;
+					}
+
+					DefineFilter(
+						filters,
+						[dnsAddress](const GUID* filterGuid) {
+							auto filter = new WfpFilter(
+								*filterGuid,
+								MakeName(L"block ISP DNS UDP"),
+								FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+								0x0F,
+								FWP_ACTION_BLOCK);
+
+							filter->AddMatchProtocolIpAndPortConditions(
+								IPPROTO_UDP,
+								dnsAddress,
+								53);
+							return filter;
+						});
+
+					DefineFilter(
+						filters,
+						[dnsAddress](const GUID* filterGuid) {
+							auto filter = new WfpFilter(
+								*filterGuid,
+								MakeName(L"block ISP DNS TCP"),
+								FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+								0x0F,
+								FWP_ACTION_BLOCK);
+
+							filter->AddMatchProtocolIpAndPortConditions(
+								IPPROTO_TCP,
+								dnsAddress,
+								53);
+							return filter;
+						});
 				}
-				
-				DefineFilter(
-					filters,
-					[dnsAddress](const GUID* filterGuid) {
-					auto filter = new WfpFilter(
-						*filterGuid,
-						MakeName(L"block ISP DNS UDP"),
-						FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-						0x0F,
-						FWP_ACTION_BLOCK);
-
-					filter->AddMatchProtocolIpAndPortConditions(
-						IPPROTO_UDP,
-						dnsAddress,
-						53);
-					return filter;
-				});
-
-				DefineFilter(
-					filters,
-					[dnsAddress](const GUID* filterGuid) {
-					auto filter = new WfpFilter(
-						*filterGuid,
-						MakeName(L"block ISP DNS TCP"),
-						FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-						0x0F,
-						FWP_ACTION_BLOCK);
-
-					filter->AddMatchProtocolIpAndPortConditions(
-						IPPROTO_TCP,
-						dnsAddress,
-						53);
-					return filter;
-				});
-			}
-		});
+			});
 	}
 
 	FilterHandle FilterApiProvider::AddAllowSpecificFilter(const string& ip, UINT8 protocol, int port)
@@ -247,11 +247,11 @@ namespace wfptool
 	FilterHandle FilterApiProvider::AddAllowSpecificHostnameFilter(const string& hostname, UINT8 protocol, int port)
 	{
 		auto&& addresses = NetworkAdapterUtils::ConvertIpv4HostnameToUlongAddresses(hostname);
-		for (int i = 0; i < DNS_RESOLVE_RETRY_TIMES-1; i++) {
+		for (int i = 0; i < DNS_RESOLVE_RETRY_TIMES - 1; i++) {
 			Sleep(DNS_RESOLVE_RETRY_DELAY_MS);
 			addresses = NetworkAdapterUtils::ConvertIpv4HostnameToUlongAddresses(hostname);
-			 if (!addresses.empty())
-				 break;
+			if (!addresses.empty())
+				break;
 		}
 
 		if (addresses.empty())
@@ -261,89 +261,89 @@ namespace wfptool
 		}
 
 		return CreateFilterGroupByFunc([&addresses, protocol, port](vector<FilterGuidPair>& filters)
-		{
-			for (auto address : addresses)
 			{
-				auto allowSpecificHostnameOutboundFilterGuid = CreateFilterGuid();
-				auto allowSpecificHostnameOutboundFilter = new WfpFilter(
-					*allowSpecificHostnameOutboundFilterGuid,
-					MakeName(L"allow specific hostname outbound filter"),
-					FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-					0xF,
-					FWP_ACTION_PERMIT);
-				allowSpecificHostnameOutboundFilter->AddMatchProtocolIpAndPortConditions(
-					protocol,
-					address,
-					port);
-				filters.push_back(FilterGuidPair(
-					allowSpecificHostnameOutboundFilter,
-					allowSpecificHostnameOutboundFilterGuid));
-			}
-		});
+				for (auto address : addresses)
+				{
+					auto allowSpecificHostnameOutboundFilterGuid = CreateFilterGuid();
+					auto allowSpecificHostnameOutboundFilter = new WfpFilter(
+						*allowSpecificHostnameOutboundFilterGuid,
+						MakeName(L"allow specific hostname outbound filter"),
+						FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+						0xF,
+						FWP_ACTION_PERMIT);
+					allowSpecificHostnameOutboundFilter->AddMatchProtocolIpAndPortConditions(
+						protocol,
+						address,
+						port);
+					filters.push_back(FilterGuidPair(
+						allowSpecificHostnameOutboundFilter,
+						allowSpecificHostnameOutboundFilterGuid));
+				}
+			});
 	}
 
 	FilterHandle FilterApiProvider::AddAllowSubnet(UINT32 ip, UINT32 subnetMask)
 	{
 		return CreateFilterGroupByFunc([ip, subnetMask](vector<FilterGuidPair>& filters)
-		{
-			DefineFilter(filters,
-				[ip, subnetMask](const GUID* filterGuid)
 			{
-				auto filter = new WfpFilter(
-					*filterGuid,
-					MakeName(L"allow private network"),
-					FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-					0x0F,
-					FWP_ACTION_PERMIT);
+				DefineFilter(filters,
+				[ip, subnetMask](const GUID* filterGuid)
+					{
+						auto filter = new WfpFilter(
+							*filterGuid,
+							MakeName(L"allow private network"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+							0x0F,
+							FWP_ACTION_PERMIT);
 
-				auto addrAndMask = new FWP_V4_ADDR_AND_MASK;
-				addrAndMask->addr = ip;
-				addrAndMask->mask = subnetMask;
-				filter->AddCondition(
-					FWPM_CONDITION_IP_REMOTE_ADDRESS,
-					FWP_MATCH_EQUAL,
-					FWP_V4_ADDR_MASK,
-					reinterpret_cast<UINT64>(addrAndMask));
-				return filter;
+						auto addrAndMask = new FWP_V4_ADDR_AND_MASK;
+						addrAndMask->addr = ip;
+						addrAndMask->mask = subnetMask;
+						filter->AddCondition(
+							FWPM_CONDITION_IP_REMOTE_ADDRESS,
+							FWP_MATCH_EQUAL,
+							FWP_V4_ADDR_MASK,
+							reinterpret_cast<UINT64>(addrAndMask));
+						return filter;
+					});
 			});
-		});
 	}
 
 	FilterHandle FilterApiProvider::AddAllowDnsFilter()
 	{
 		return CreateFilterGroupByFunc([](vector<FilterGuidPair>& filters)
-		{
-			DefineFilter(
-				filters,
-				[](const GUID* filterGuid) {
-				auto filter = new WfpFilter(
-					*filterGuid,
-					MakeName(L"allow tcp dns filter"),
-					FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-					0x0E,
-					FWP_ACTION_PERMIT);
-				filter->AddMatchProtocolIpAndPortConditions(
-					IPPROTO_TCP,
-					0,
-					DNS_SERVER_PORT);
-				return filter;
+			{
+				DefineFilter(
+					filters,
+					[](const GUID* filterGuid) {
+						auto filter = new WfpFilter(
+							*filterGuid,
+							MakeName(L"allow tcp dns filter"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+							0x0E,
+							FWP_ACTION_PERMIT);
+						filter->AddMatchProtocolIpAndPortConditions(
+							IPPROTO_TCP,
+							0,
+							DNS_SERVER_PORT);
+						return filter;
+					});
+				DefineFilter(
+					filters,
+					[](const GUID* filterGuid) {
+						auto filter = new WfpFilter(
+							*filterGuid,
+							MakeName(L"allow udp dns filter"),
+							FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
+							0x0E,
+							FWP_ACTION_PERMIT);
+						filter->AddMatchProtocolIpAndPortConditions(
+							IPPROTO_UDP,
+							0,
+							DNS_SERVER_PORT);
+						return filter;
+					});
 			});
-			DefineFilter(
-				filters,
-				[](const GUID* filterGuid) {
-				auto filter = new WfpFilter(
-					*filterGuid,
-					MakeName(L"allow udp dns filter"),
-					FWPM_LAYER_OUTBOUND_TRANSPORT_V4,
-					0x0E,
-					FWP_ACTION_PERMIT);
-				filter->AddMatchProtocolIpAndPortConditions(
-					IPPROTO_UDP,
-					0,
-					DNS_SERVER_PORT);
-				return filter;
-			});
-		});
 	}
 
 	void FilterApiProvider::AddFilter(WfpFilter* filter, GUID* guid)
@@ -400,7 +400,7 @@ namespace wfptool
 
 	FilterHandle FilterApiProvider::CreateFilterGroupByGuid(const GUID* guid)
 	{
-		return CreateFilterGroup({guid});
+		return CreateFilterGroup({ guid });
 	}
 
 	GUID* FilterApiProvider::CreateFilterGuid()

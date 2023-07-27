@@ -369,8 +369,8 @@ namespace wfptool
 			else
 			{
 				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(callCount == ips.size());
-				Assert::IsTrue(filterVector.size() == ips.size());
+				Assert::IsTrue(callCount == 1);
+				Assert::IsTrue(filterVector.size() == 1);
 				for (auto filter : filterVector)
 				{
 					Assert::IsTrue(filter->numFilterConditions == 1);
@@ -380,8 +380,8 @@ namespace wfptool
 				filterVector.clear();
 				handle = provider.AddAllowSpecificFilter(hostName, IPPROTO_TCP, 0);
 				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(callCount == ips.size());
-				Assert::IsTrue(filterVector.size() == ips.size());
+				Assert::IsTrue(callCount == 1);
+				Assert::IsTrue(filterVector.size() == 1);
 				for(auto filter: filterVector)
 				{
 					Assert::IsTrue(filter->numFilterConditions == 2);
@@ -391,8 +391,8 @@ namespace wfptool
 				filterVector.clear();
 				handle = provider.AddAllowSpecificFilter(hostName, IPPROTO_TCP, 443);
 				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(callCount == ips.size());
-				Assert::IsTrue(filterVector.size() == ips.size());
+				Assert::IsTrue(callCount == 1);
+				Assert::IsTrue(filterVector.size() == 1);
 				for (auto filter : filterVector)
 				{
 					Assert::IsTrue(filter->numFilterConditions == 3);

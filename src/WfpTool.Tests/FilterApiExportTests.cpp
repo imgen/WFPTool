@@ -28,11 +28,11 @@ namespace wfptool
 				const FWPM_FILTER* filter,
 				PSECURITY_DESCRIPTOR sd,
 				UINT64* id)
-			{
-				callCount++;
-				filterVector.push_back(filter);
-				return NO_ERROR;
-			});
+				{
+					callCount++;
+					filterVector.push_back(filter);
+					return NO_ERROR;
+				});
 
 			FilterHandle handle;
 			AddBlockAllFilter2(&handle);
@@ -45,8 +45,8 @@ namespace wfptool
 			Assert::IsTrue(filterVector.size() >= 3);
 
 			const FWPM_FILTER* blockAllIpv4Filter = nullptr,
-				*blockAllIpv6Filter = nullptr,
-				*allowLocalLoopbackFilter = nullptr;
+				* blockAllIpv6Filter = nullptr,
+				* allowLocalLoopbackFilter = nullptr;
 			for (auto& filter : filterVector)
 			{
 				if (filter->layerKey == FWPM_LAYER_OUTBOUND_TRANSPORT_V4 &&
@@ -89,11 +89,11 @@ namespace wfptool
 				const FWPM_FILTER* filter,
 				PSECURITY_DESCRIPTOR sd,
 				UINT64* id)
-			{
-				callCount++;
-				filterVector.push_back(filter);
-				return NO_ERROR;
-			});
+				{
+					callCount++;
+					filterVector.push_back(filter);
+					return NO_ERROR;
+				});
 
 			auto&& dnsServers = NetworkAdapterUtils::GetAllDnsServers();
 			FilterHandle handle;
@@ -122,14 +122,14 @@ namespace wfptool
 		{
 			FilterHandle handle;
 			NetworkAdapterUtils::EnumerateNetworkAdapters([&handle](const MIB_IF_ROW2& interfaceInfo)
-			{
-				auto interfaceAlias = interfaceInfo.Alias;
-				auto errorCode = AddAllowTunnelFilter2(&handle, interfaceAlias);
-				Assert::AreEqual(errorCode, GetLastFilterApiError());
-				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(errorCode == NO_ERROR);
-				return true;
-			});
+				{
+					auto interfaceAlias = interfaceInfo.Alias;
+					auto errorCode = AddAllowTunnelFilter2(&handle, interfaceAlias);
+					Assert::AreEqual(errorCode, GetLastFilterApiError());
+					Assert::IsTrue(handle > 0);
+					Assert::IsTrue(errorCode == NO_ERROR);
+					return true;
+				});
 
 			auto invalidAdapterName = L"Invalid adapter";
 			auto errorCode = AddAllowTunnelFilter2(&handle, invalidAdapterName);
@@ -146,11 +146,11 @@ namespace wfptool
 				const FWPM_FILTER* filter,
 				PSECURITY_DESCRIPTOR sd,
 				UINT64* id)
-			{
-				callCount++;
-				filterVector.push_back(filter);
-				return NO_ERROR;
-			});
+				{
+					callCount++;
+					filterVector.push_back(filter);
+					return NO_ERROR;
+				});
 
 			FilterHandle handle;
 			auto errorCode = AddAllowSpecificFilter2(&handle, "", 0, 0);
@@ -193,11 +193,11 @@ namespace wfptool
 				const FWPM_FILTER* filter,
 				PSECURITY_DESCRIPTOR sd,
 				UINT64* id)
-			{
-				callCount++;
-				filterVector.push_back(filter);
-				return NO_ERROR;
-			});
+				{
+					callCount++;
+					filterVector.push_back(filter);
+					return NO_ERROR;
+				});
 
 			FilterHandle handle;
 			auto errorCode = AddAllowSpecificHostnameFilter2(&handle, "", 0, 0);
@@ -221,8 +221,8 @@ namespace wfptool
 			else
 			{
 				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(callCount == ips.size());
-				Assert::IsTrue(filterVector.size() == ips.size());
+				Assert::IsTrue(callCount == 2);
+				Assert::IsTrue(filterVector.size() == 2);
 				for (auto filter : filterVector)
 				{
 					Assert::IsTrue(filter->numFilterConditions == 1);
@@ -233,8 +233,8 @@ namespace wfptool
 				errorCode = AddAllowSpecificFilter2(&handle, hostName, IPPROTO_TCP, 0);
 				Assert::AreEqual(errorCode, GetLastFilterApiError());
 				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(callCount == ips.size());
-				Assert::IsTrue(filterVector.size() == ips.size());
+				Assert::IsTrue(callCount == 1);
+				Assert::IsTrue(filterVector.size() == 1);
 				for (auto filter : filterVector)
 				{
 					Assert::IsTrue(filter->numFilterConditions == 2);
@@ -245,8 +245,8 @@ namespace wfptool
 				errorCode = AddAllowSpecificFilter2(&handle, hostName, IPPROTO_TCP, 443);
 				Assert::AreEqual(errorCode, GetLastFilterApiError());
 				Assert::IsTrue(handle > 0);
-				Assert::IsTrue(callCount == ips.size());
-				Assert::IsTrue(filterVector.size() == ips.size());
+				Assert::IsTrue(callCount == 1);
+				Assert::IsTrue(filterVector.size() == 1);
 				for (auto filter : filterVector)
 				{
 					Assert::IsTrue(filter->numFilterConditions == 3);
@@ -262,11 +262,11 @@ namespace wfptool
 				const FWPM_FILTER* filter,
 				PSECURITY_DESCRIPTOR sd,
 				UINT64* id)
-			{
-				callCount++;
-				filterVector.push_back(filter);
-				return NO_ERROR;
-			});
+				{
+					callCount++;
+					filterVector.push_back(filter);
+					return NO_ERROR;
+				});
 
 			auto errorCode = RemoveFilter2(0);
 			Assert::AreEqual(errorCode, GetLastFilterApiError());
@@ -284,17 +284,17 @@ namespace wfptool
 
 			callCount = 0;
 			SetDeleteFilterByKeyCallback([&callCount, &filterVector](HANDLE engineHandle, const GUID* filterKey)
-			{
-				callCount++;
-				for (int i = 0; i < filterVector.size();i++)
 				{
-					if (filterVector[i]->filterKey == *filterKey)
+					callCount++;
+					for (int i = 0; i < filterVector.size(); i++)
 					{
-						filterVector.erase(filterVector.begin() + i);
+						if (filterVector[i]->filterKey == *filterKey)
+						{
+							filterVector.erase(filterVector.begin() + i);
+						}
 					}
-				}
-				return NO_ERROR;
-			});
+					return NO_ERROR;
+				});
 			errorCode = RemoveFilter2(handle);
 			Assert::AreEqual(errorCode, GetLastFilterApiError());
 
@@ -310,11 +310,11 @@ namespace wfptool
 				const FWPM_FILTER* filter,
 				PSECURITY_DESCRIPTOR sd,
 				UINT64* id)
-			{
-				callCount++;
-				filterVector.push_back(const_cast<FWPM_FILTER*>(filter));
-				return NO_ERROR;
-			});
+				{
+					callCount++;
+					filterVector.push_back(const_cast<FWPM_FILTER*>(filter));
+					return NO_ERROR;
+				});
 
 			FilterHandle handle;
 			AddBlockAllFilter2(&handle);
@@ -327,18 +327,18 @@ namespace wfptool
 			SetMockFilters(filterVector2.data(), filterVector.size());
 			callCount = 0;
 			SetDeleteFilterByKeyCallback([&callCount, &filterVector](HANDLE engineHandle, const GUID* filterKey)
-			{
-				callCount++;
-				for (int i = 0; i < filterVector.size(); i++)
 				{
-					if (filterVector[i]->filterKey == *filterKey)
+					callCount++;
+					for (int i = 0; i < filterVector.size(); i++)
 					{
-						filterVector.erase(filterVector.begin() + i);
-						return NO_ERROR;
+						if (filterVector[i]->filterKey == *filterKey)
+						{
+							filterVector.erase(filterVector.begin() + i);
+							return NO_ERROR;
+						}
 					}
-				}
-				return NO_ERROR;
-			});
+					return NO_ERROR;
+				});
 			auto errorCode = RemoveAllFilters2();
 			Assert::AreEqual(errorCode, GetLastFilterApiError());
 			Assert::IsTrue(callCount == filterSize);
