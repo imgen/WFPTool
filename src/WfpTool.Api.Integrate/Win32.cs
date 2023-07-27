@@ -4,7 +4,7 @@ namespace WfpTool.Api.Integrate
 {
     public static class Win32
     {
-        const string FilterApiDll = "FilterManager.dll";
+        const string FilterApiDll = "WfpTool.Api.dll";
 
         [DllImport(FilterApiDll)]
         public static extern uint GetLastFilterApiError();
