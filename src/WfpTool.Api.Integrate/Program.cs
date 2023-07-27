@@ -6,23 +6,27 @@ namespace WfpTool.Api.Integrate
     {
         static void Main()
         {
-            var handle = Win32.AddAllowTunnelFilter("Nodapter");
+            var handle = Win32.AddAllowTunnelFilter("Wi-Fi");
             if (handle <= 0)
             {
                 var errorCode = Win32.GetLastFilterApiError();
                 Console.WriteLine("Oops, AddAllowTunnelFilter failed with error code: " + errorCode);
             }
-            var success = Win32.RemoveFilter(handle);
-            if (success == 0)
+            else
             {
-                var errorCode = Win32.GetLastFilterApiError();
-                Console.WriteLine("Oops, unable to remove block all filter with error code: " + errorCode);
+                var success = Win32.RemoveFilter(handle);
+                if (success == 0)
+                {
+                    var errorCode = Win32.GetLastFilterApiError();
+                    Console.WriteLine("Oops, unable to remove block all filter with error code: " + errorCode);
+                }
             }
 
-            success = Win32.RemoveAllFilters();
-            if (success == 0)
+            var success2 = Win32.RemoveAllFilters();
+            if (success2 <= 0)
             {
-                Console.WriteLine("Oops, unable to remove all filters");
+                var errorCode = Win32.GetLastFilterApiError();
+                Console.WriteLine("Oops, unable to remove all filters with error code: " + errorCode);
             }
         }
     }
