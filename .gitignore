@@ -35,3 +35,7 @@ src/.vs/
 src/Debug/
 src/WfpTool.Tests/WfpTool.Tests.vcxproj.user
 src/WfpTool.Tests/Debug/
+*.user
+src/WfpTool.Api.Integrate/bin/
+src/WfpTool.Api/Debug/
+src/WfpTool.Api/Release/

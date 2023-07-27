@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <functional>
+#include <xstring>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ namespace wfptool
 		{
 			HANDLE    EngineHandle;
 			std::exception_ptr Exception;
-		} TRANSACTION_CONTEXT, *PTRANSACTION_CONTEXT;
+		} TRANSACTION_CONTEXT, * PTRANSACTION_CONTEXT;
 
 		void WorkWithWfpEngineTransaction_CppEH(function<void(const HANDLE&)>* worker, PTRANSACTION_CONTEXT ctx) const;
 		void WorkWithWfpEngineTransaction_SEH(function<void(const HANDLE&)>* worker, PTRANSACTION_CONTEXT ctx) const;

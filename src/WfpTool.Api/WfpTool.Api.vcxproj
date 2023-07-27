@@ -144,7 +144,8 @@
     <PostBuildEvent>
       <Message>
       </Message>
-      <Command>$(SolutionDir)..\..\CI\signall.cmd $(TargetDir) "ExpressVpn*.dll"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
