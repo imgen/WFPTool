@@ -18,7 +18,7 @@ static const wstring DEFAULT_VPN_ADAPTER_NAME = L"TAP-Windows Adapter V9";
 
 static void TestFilterApi();
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	TestFilterApi();
 	return 0;
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		}
 		auto&& allDnsServers = NetworkAdapterUtils::GetAllDnsServers();
 		cout << "Found " << allDnsServers.size() << " DNS servers: " << endl;
-		for (auto& dnsServer: allDnsServers)
+		for (auto& dnsServer : allDnsServers)
 		{
 			cout << "Interface Index: " << dnsServer.first << ", DNS Address: " << dnsServer.second << endl;
 		}
@@ -140,17 +140,20 @@ void TestFilterApi()
 		cout << "Oops, you are not supposed to get error code " << error << endl;
 	}
 
-	filterHandle = AddAllowTunnelFilter(L"WFPTool");
+	filterHandle = AddAllowTunnelFilter(L"Wi-Fi");
 	error = GetLastFilterApiError();
 	if (error != NO_ERROR)
 	{
 		cout << "Oops, you are not supposed to get error code " << error << endl;
 	}
-	RemoveFilter(filterHandle);
-	error = GetLastFilterApiError();
-	if (error != NO_ERROR)
+	if (filterHandle > 0)
 	{
-		cout << "Oops, you are not supposed to get error code " << error << endl;
+		RemoveFilter(filterHandle);
+		error = GetLastFilterApiError();
+		if (error != NO_ERROR)
+		{
+			cout << "Oops, you are not supposed to get error code " << error << endl;
+		}
 	}
 
 	filterHandle = AddAllowSpecificFilter("192.168.2.1", IPPROTO_TCP, 443);
