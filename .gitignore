@@ -41,3 +41,4 @@ src/WfpTool.Api/Debug/
 src/WfpTool.Api/Release/
 src/Release/
 src/WfpTool/Release/
+src/WfpTool.Tests/Release/
