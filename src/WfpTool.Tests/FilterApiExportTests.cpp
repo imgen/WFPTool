@@ -299,7 +299,7 @@ namespace wfptool
 			Assert::AreEqual(errorCode, GetLastFilterApiError());
 
 			Assert::IsTrue(callCount == filterSize);
-			Assert::IsTrue(filterVector.size() == 0);
+			Assert::IsTrue(filterVector.empty());
 		}
 
 		TEST_METHOD(TestFilterApiExport_RemoveAllFilters)
@@ -342,7 +342,7 @@ namespace wfptool
 			auto errorCode = RemoveAllFilters2();
 			Assert::AreEqual(errorCode, GetLastFilterApiError());
 			Assert::IsTrue(callCount == filterSize);
-			Assert::IsTrue(filterVector.size() == 0);
+			Assert::IsTrue(filterVector.empty());
 
 			SetMockFilters(nullptr, 0);
 		}
